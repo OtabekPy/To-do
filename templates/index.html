@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tasks</title>
+</head>
+<body>
+<form method="post" action="/">
+    {% csrf_token %}
+    {{form.title}}
+    <input type="submit" name = 'Created task'>
+</form>
+
+<h2>Tasks list:</h2>
+{% for task in tasks %}
+    <div>
+        <p> {{forloop.counter}}.
+            {% if task.completed == True %}
+            <strike>{{task}}</strike>
+            {% else %}
+            <span>{{task}}</span>
+            {% endif %}
+            <a href="/update/{{task.id}}/">
+                <button>
+                    Update
+                </button>
+            </a>
+
+            <a href="/delete/{{task.id}}/">
+                <button>
+                    Delete
+                </button>
+            </a>
+        </p>
+    </div>
+{% endfor %}
+</body>
+</html>
